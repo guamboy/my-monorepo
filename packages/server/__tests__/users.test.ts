@@ -3,7 +3,8 @@ import request from 'supertest'
 import express from 'express'
 import cors from 'cors'
 import admin from 'firebase-admin'
-import { User } from '../../shared'
+import { User } from '@shared/types'
+
 
 jest.mock('firebase-admin', () => ({
   initializeApp: jest.fn(),

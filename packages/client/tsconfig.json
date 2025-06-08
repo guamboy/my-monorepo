@@ -22,7 +22,11 @@
     "types": [
       "jest",
       "@testing-library/jest-dom"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../shared/*"]
+    }
   },
   "include": [
     "src",

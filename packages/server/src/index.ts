@@ -1,8 +1,11 @@
 
+import 'dotenv/config'
 import express from 'express'
-import cors from 'cors'
+import { getErrorMessage } from '@shared/utils'
+import { User } from '@shared/types'
 import admin from 'firebase-admin'
-import { User } from '../../shared/types'
+import cors from 'cors'
+
 
 const app = express()
 app.use(cors())
@@ -28,7 +31,7 @@ app.get('/users/:id', async (req, res) => {
     }
     res.json(doc.data())
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: getErrorMessage(error) })
   }
 })
 
@@ -38,7 +41,7 @@ app.post('/users', async (req, res) => {
     await db.collection('users').doc(user.uid).set(user)
     res.status(201).json(user)
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: getErrorMessage(error) })
   }
 })
 
@@ -48,7 +51,7 @@ app.put('/users/:id', async (req, res) => {
     await db.collection('users').doc(req.params.id).update(user)
     res.json({ message: 'User updated' })
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: getErrorMessage(error) })
   }
 })
 
@@ -57,7 +60,7 @@ app.delete('/users/:id', async (req, res) => {
     await db.collection('users').doc(req.params.id).delete()
     res.json({ message: 'User deleted' })
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    res.status(500).json({ error: getErrorMessage(error) })
   }
 })
 

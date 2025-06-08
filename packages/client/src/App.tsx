@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { auth, googleProvider, microsoftProvider } from './firebase'
 import { signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { User } from '@shared/types'
+import { getErrorMessage } from '@shared/utils'
 
 function App() {
   const [email, setEmail] = useState('')
@@ -13,7 +15,7 @@ function App() {
       await createUserWithEmailAndPassword(auth, email, password)
       setError('')
     } catch (err) {
-      setError(err.message)
+      setError(getErrorMessage(err))
     }
   }
 
@@ -22,7 +24,7 @@ function App() {
       await signInWithEmailAndPassword(auth, email, password)
       setError('')
     } catch (err) {
-      setError(err.message)
+      setError(getErrorMessage(err))
     }
   }
 
@@ -31,7 +33,7 @@ function App() {
       await signInWithPopup(auth, googleProvider)
       setError('')
     } catch (err) {
-      setError(err.message)
+      setError(getErrorMessage(err))
     }
   }
 
@@ -40,8 +42,14 @@ function App() {
       await signInWithPopup(auth, microsoftProvider)
       setError('')
     } catch (err) {
-      setError(err.message)
+      setError(getErrorMessage(err))
     }
+  }
+
+  const test: User ={
+    uid: 'test-uid',
+    email: '',
+    createdAt: 'new Date()',
   }
 
   return (
